@@ -16,7 +16,7 @@ import xlsxwriter
 from xlsxwriter.utility import xl_rowcol_to_cell, xl_col_to_name
 
 from inputs import (
-    CURRENCY, MARR, STUDY_PERIOD, INFLATION, TAX_REGIME, DEPRECIATION,
+    CURRENCY, MARR, STUDY_PERIOD, TAX_REGIME, DEPRECIATION,
     ANALYSIS_DATE, PROJECT_CONTEXT, SOURCES, ALTERNATIVES, TEAM,
     SENSITIVITY_DRIVERS,
 )
@@ -369,18 +369,13 @@ def build_assumptions(ws, fmts):
     ws.write("D6", "5-year horizon per proposal.", fmts["note"])
     ws.write("E6", "Project proposal", fmts["note"])
 
-    ws.write("B7", "General Inflation (informational)", fmts["label_bold"])
-    ws.write("C7", INFLATION, fmts["percent_input"])
-    ws.write("D7", "Analysis conducted in constant real dollars; MARR already includes a market risk premium.", fmts["note"])
-    ws.write_url("E7", "https://www.bls.gov/cpi/", fmts["src"], "BLS CPI")
+    ws.write("B7", "Tax Regime", fmts["label_bold"])
+    ws.merge_range("C7:D7", TAX_REGIME, fmts["label"])
+    ws.write("E7", "Course convention", fmts["note"])
 
-    ws.write("B8", "Tax Regime", fmts["label_bold"])
-    ws.merge_range("C8:D8", TAX_REGIME, fmts["label"])
-    ws.write("E8", "Course convention", fmts["note"])
-
-    ws.write("B9", "Depreciation", fmts["label_bold"])
-    ws.merge_range("C9:D9", DEPRECIATION, fmts["label"])
-    ws.write("E9", "Straight-line for simplicity", fmts["note"])
+    ws.write("B8", "Depreciation", fmts["label_bold"])
+    ws.merge_range("C8:D8", DEPRECIATION, fmts["label"])
+    ws.write("E8", "Straight-line for simplicity", fmts["note"])
 
     # Project context
     ws.merge_range("B11:E11", "PROJECT CONTEXT", fmts["subheader"])

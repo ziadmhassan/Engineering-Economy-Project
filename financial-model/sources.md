@@ -93,12 +93,6 @@ traces back to one of the sources listed below. Same content as the
     <https://calculator.aws>
     EC2 g5.xlarge inference + S3 + Kinesis ≈ $1.5–2.5k/mo for the workload modeled.
 
-## Inflation reference (informational)
-
-19. **U.S. Bureau of Labor Statistics — Consumer Price Index**
-    <https://www.bls.gov/cpi/>
-    Used to disclose that the analysis is conducted in constant 2024 USD; MARR already includes a market risk premium so inflation is not double-counted.
-
 ---
 
 ## How sources were applied

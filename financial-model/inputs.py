@@ -19,7 +19,6 @@ from typing import Dict, List, TypedDict
 CURRENCY      = "USD"
 MARR          = 0.15                # syllabus: 15% for USD revenues
 STUDY_PERIOD  = 5                   # years
-INFLATION     = 0.025               # general U.S. CPI assumption; analysis in real $ but disclosed
 TAX_REGIME    = "Pre-tax (course convention)"
 DEPRECIATION  = "Straight-line, n=5"
 ANALYSIS_DATE = "May 13, 2026"
