@@ -25,7 +25,7 @@ ANALYSIS_DATE = "May 13, 2026"
 PROJECT_CONTEXT = {
     "site_type":           "20-story Class-A commercial high-rise (Tier-2 U.S. metro)",
     "construction_value":  50_000_000,   # USD, total project value
-    "active_value_per_yr": 10_000_000,   # USD, average active construction value per year over horizon
+    "active_value_per_yr": 10_000_000,   # USD, avg active construction value per year over horizon
     "duration_months":     30,           # base construction schedule
     "headcount_onsite":    180,          # avg workers on site
     "owner_type":          "Mid-size U.S. general contractor — rolling project pipeline",
