@@ -1,0 +1,275 @@
+:root {
+  /* Blueprint × Financial palette */
+  --bg-deep: #050a14;
+  --bg: #0a1424;
+  --bg-2: #0f1d33;
+  --panel: #122340;
+  --line: #1e3358;
+  --line-2: #2a4878;
+
+  --paper: #f5efe0;
+  --paper-2: #ede5cf;
+  --ink: #0a1424;
+
+  --blue: #4a9eff;
+  --blue-deep: #1e5fb8;
+  --amber: #f5a524;        /* construction safety */
+  --amber-deep: #d97706;
+  --green: #19c37d;        /* profit / savings */
+  --green-glow: #3dffa3;
+  --red: #ef4444;
+  --red-deep: #b91c1c;
+  --gold: #e3c46b;
+
+  --font-display: 'Playfair Display', 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-deep);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  overflow: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+  border: none;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--ink);
+}
+
+/* slide stage — 16:9 fit-to-window */
+.stage {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at 50% 0%, #11203d 0%, var(--bg-deep) 70%);
+}
+
+.slide-frame {
+  width: min(100vw, calc(100vh * 16 / 9));
+  height: min(100vh, calc(100vw * 9 / 16));
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.slide-inner {
+  position: absolute;
+  inset: 0;
+  /* virtual 1920x1080 — content authored at this size */
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+}
+
+/* Animated blueprint grid background */
+.blueprint-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+}
+.blueprint-bg::before,
+.blueprint-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.blueprint-bg::before {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.45;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 90%);
+}
+.blueprint-bg::after {
+  background-image:
+    linear-gradient(var(--line-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+  background-size: 320px 320px;
+  opacity: 0.3;
+}
+
+/* HUD chrome */
+.hud {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: rgba(245, 239, 224, 0.45);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 120px;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  color: var(--paper);
+}
+.h1 em { font-style: italic; color: var(--amber); }
+
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 84px;
+  line-height: 1;
+  letter-spacing: -1.5px;
+}
+
+.h3 {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 32px;
+  letter-spacing: -0.5px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-radius: 2px;
+  background: rgba(245, 165, 36, 0.05);
+}
+
+.panel {
+  background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.panel .corners::before,
+.panel .corners::after,
+.panel .corners > span::before,
+.panel .corners > span::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--amber);
+  border-style: solid;
+  border-width: 0;
+}
+.panel .corners::before { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
+.panel .corners::after { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
+.panel .corners > span::before { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
+.panel .corners > span::after { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
+
+/* Navigator dots */
+.nav-dots {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 50;
+}
+.nav-dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(245, 239, 224, 0.25);
+  transition: all 200ms ease;
+}
+.nav-dots button:hover { background: rgba(245, 239, 224, 0.6); }
+.nav-dots button.active {
+  background: var(--amber);
+  width: 28px;
+  border-radius: 4px;
+}
+
+/* Help overlay */
+.help {
+  position: fixed;
+  bottom: 18px;
+  right: 22px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(245, 239, 224, 0.35);
+  z-index: 50;
+}
+.help kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  border: 1px solid rgba(245, 239, 224, 0.25);
+  border-radius: 3px;
+  margin: 0 2px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Slide counter */
+.counter {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--amber);
+  z-index: 50;
+}
+
+/* Scanline drift */
+@keyframes scan {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+.scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(180deg, transparent, rgba(74, 158, 255, 0.06), transparent);
+  pointer-events: none;
+  animation: scan 12s linear infinite;
+}
+
+/* utility */
+.glow-green { text-shadow: 0 0 30px rgba(25, 195, 125, 0.6), 0 0 60px rgba(25, 195, 125, 0.3); }
+.glow-amber { text-shadow: 0 0 30px rgba(245, 165, 36, 0.6), 0 0 60px rgba(245, 165, 36, 0.3); }
+.glow-red   { text-shadow: 0 0 30px rgba(239, 68, 68, 0.55); }
