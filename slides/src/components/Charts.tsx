@@ -339,48 +339,48 @@ export const TornadoChart = ({
               transition={{ duration: 0.9, delay: delay + i * 0.12 + 0.1 }}
               style={{ filter: 'drop-shadow(0 0 8px var(--green))' }}
             />
-            {/* Worse-side label: $ value on top line, % delta below */}
-            <text
-              x={xWorse - 8}
-              y={y + barH / 2 - 2}
-              fontFamily="var(--font-mono)"
-              fontSize={13}
-              fill="var(--red)"
-              textAnchor="end"
-            >
-              {format(worsePW)}
-            </text>
-            <text
-              x={xWorse - 8}
-              y={y + barH / 2 + 14}
-              fontFamily="var(--font-mono)"
-              fontSize={11}
-              fill="rgba(232, 75, 75, 0.75)"
-              textAnchor="end"
-            >
-              {fmtPct(pctWorse)}
-            </text>
-            {/* Better-side label: $ value on top line, % delta below */}
-            <text
-              x={xBetter + 8}
-              y={y + barH / 2 - 2}
-              fontFamily="var(--font-mono)"
-              fontSize={13}
-              fill="var(--green)"
-              textAnchor="start"
-            >
-              {format(betterPW)}
-            </text>
-            <text
-              x={xBetter + 8}
-              y={y + barH / 2 + 14}
-              fontFamily="var(--font-mono)"
-              fontSize={11}
-              fill="rgba(25, 195, 125, 0.75)"
-              textAnchor="start"
-            >
-              {fmtPct(pctBetter)}
-            </text>
+            {/* Worse-side labels — outside bar by default; flip INSIDE when bar runs into the driver-name column */}
+            {(() => {
+              const labelMinX = padL + 6; // never cross into driver-name column
+              const outsideX = xWorse - 8;
+              const insideX = xWorse + 8;
+              const useInside = wLeft > 80 && outsideX < labelMinX + 70;
+              const x = useInside ? insideX : outsideX;
+              const anchor = useInside ? 'start' : 'end';
+              const dollarFill = useInside ? '#0a1424' : 'var(--red)';
+              const pctFill = useInside ? 'rgba(10,20,36,0.75)' : 'rgba(232,75,75,0.75)';
+              return (
+                <>
+                  <text x={x} y={y + barH / 2 - 2} fontFamily="var(--font-mono)" fontSize={13} fontWeight={700} fill={dollarFill} textAnchor={anchor}>
+                    {format(worsePW)}
+                  </text>
+                  <text x={x} y={y + barH / 2 + 14} fontFamily="var(--font-mono)" fontSize={11} fill={pctFill} textAnchor={anchor}>
+                    {fmtPct(pctWorse)}
+                  </text>
+                </>
+              );
+            })()}
+            {/* Better-side labels — outside bar by default; flip INSIDE when bar runs into the right margin */}
+            {(() => {
+              const labelMaxX = width - padR - 6;
+              const outsideX = xBetter + 8;
+              const insideX = xBetter - 8;
+              const useInside = wRight > 80 && outsideX > labelMaxX - 70;
+              const x = useInside ? insideX : outsideX;
+              const anchor = useInside ? 'end' : 'start';
+              const dollarFill = useInside ? '#0a1424' : 'var(--green)';
+              const pctFill = useInside ? 'rgba(10,20,36,0.75)' : 'rgba(25,195,125,0.75)';
+              return (
+                <>
+                  <text x={x} y={y + barH / 2 - 2} fontFamily="var(--font-mono)" fontSize={13} fontWeight={700} fill={dollarFill} textAnchor={anchor}>
+                    {format(betterPW)}
+                  </text>
+                  <text x={x} y={y + barH / 2 + 14} fontFamily="var(--font-mono)" fontSize={11} fill={pctFill} textAnchor={anchor}>
+                    {fmtPct(pctBetter)}
+                  </text>
+                </>
+              );
+            })()}
           </g>
         );
       })}
