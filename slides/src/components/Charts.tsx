@@ -293,10 +293,19 @@ export const TornadoChart = ({
       </text>
       {data.map((d, i) => {
         const y = 30 + i * rowH + (rowH - barH) / 2;
-        const xLow = Math.min(xOf(d.low), xOf(baseline));
-        const xHigh = Math.max(xOf(d.high), xOf(baseline));
-        const wLeft = xOf(baseline) - xLow;
-        const wRight = xHigh - xOf(baseline);
+        // Endpoint that is MORE negative than baseline → "worse" (red, left of baseline)
+        // Endpoint that is LESS negative than baseline → "better" (green, right of baseline)
+        const worsePW = Math.min(d.low, d.high);
+        const betterPW = Math.max(d.low, d.high);
+        const xWorse = xOf(worsePW);
+        const xBetter = xOf(betterPW);
+        const xBase = xOf(baseline);
+        const wLeft = Math.max(0, xBase - xWorse);
+        const wRight = Math.max(0, xBetter - xBase);
+        const pctWorse = (worsePW - baseline) / Math.abs(baseline);
+        const pctBetter = (betterPW - baseline) / Math.abs(baseline);
+        const fmtPct = (v: number) =>
+          `${v >= 0 ? '+' : '−'}${(Math.abs(v) * 100).toFixed(1)}%`;
         return (
           <g key={i}>
             <text
@@ -311,7 +320,7 @@ export const TornadoChart = ({
               {d.driver}
             </text>
             <motion.rect
-              x={xLow}
+              x={xWorse}
               y={y}
               height={barH}
               fill="var(--red)"
@@ -321,7 +330,7 @@ export const TornadoChart = ({
               style={{ filter: 'drop-shadow(0 0 8px var(--red))' }}
             />
             <motion.rect
-              x={xOf(baseline)}
+              x={xBase}
               y={y}
               height={barH}
               fill="var(--green)"
@@ -330,25 +339,47 @@ export const TornadoChart = ({
               transition={{ duration: 0.9, delay: delay + i * 0.12 + 0.1 }}
               style={{ filter: 'drop-shadow(0 0 8px var(--green))' }}
             />
+            {/* Worse-side label: $ value on top line, % delta below */}
             <text
-              x={xLow - 8}
-              y={y + barH / 2 + 5}
+              x={xWorse - 8}
+              y={y + barH / 2 - 2}
               fontFamily="var(--font-mono)"
               fontSize={13}
               fill="var(--red)"
               textAnchor="end"
             >
-              {format(d.low)}
+              {format(worsePW)}
             </text>
             <text
-              x={xHigh + 8}
-              y={y + barH / 2 + 5}
+              x={xWorse - 8}
+              y={y + barH / 2 + 14}
+              fontFamily="var(--font-mono)"
+              fontSize={11}
+              fill="rgba(232, 75, 75, 0.75)"
+              textAnchor="end"
+            >
+              {fmtPct(pctWorse)}
+            </text>
+            {/* Better-side label: $ value on top line, % delta below */}
+            <text
+              x={xBetter + 8}
+              y={y + barH / 2 - 2}
               fontFamily="var(--font-mono)"
               fontSize={13}
               fill="var(--green)"
               textAnchor="start"
             >
-              {format(d.high)}
+              {format(betterPW)}
+            </text>
+            <text
+              x={xBetter + 8}
+              y={y + barH / 2 + 14}
+              fontFamily="var(--font-mono)"
+              fontSize={11}
+              fill="rgba(25, 195, 125, 0.75)"
+              textAnchor="start"
+            >
+              {fmtPct(pctBetter)}
             </text>
           </g>
         );
