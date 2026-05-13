@@ -4,7 +4,7 @@ import { AnimatedNumber } from '../components/Counter';
 import { INCREMENTAL, MARR, fmtUSD, pct } from '../data/model';
 
 export const SlideIncremental = () => {
-  const { simplePayback, irr, bcRatio, deltaCapex, annualSavings, pwBenefits } = INCREMENTAL;
+  const { irr, bcRatio, deltaCapex, annualSavings, pwBenefits } = INCREMENTAL;
 
   return (
     <>
@@ -12,7 +12,7 @@ export const SlideIncremental = () => {
       <SlideHeader
         index="09"
         eyebrow="INCREMENTAL ANALYSIS · ALT 3 vs ALT 1"
-        title="Payback. IRR."
+        title="Rate of Return."
         highlight="Benefit / Cost."
       />
 
@@ -23,37 +23,27 @@ export const SlideIncremental = () => {
           left: 96,
           right: 96,
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 28,
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: 36,
         }}
       >
         <BigStat
-          eyebrow="01 · PAYBACK PERIOD"
-          value={simplePayback}
-          format={(v) => v.toFixed(2)}
-          unit=" yrs"
-          color="var(--green)"
-          delay={0.4}
-          verdict={`Capital recovered in under ${Math.ceil(simplePayback * 12)} months.`}
-          formula="Payback = Δ Initial Investment ÷ Annual Savings"
-        />
-        <BigStat
-          eyebrow="02 · INTERNAL RATE OF RETURN"
+          eyebrow="01 · INTERNAL RATE OF RETURN"
           value={irr * 100}
           format={(v) => v.toFixed(1)}
           unit="%"
           color="var(--amber)"
-          delay={0.55}
+          delay={0.4}
           verdict={`IRR ≫ MARR (${(MARR * 100).toFixed(0)}%) — accept the investment.`}
           formula="NPV(IRR) = 0"
         />
         <BigStat
-          eyebrow="03 · BENEFIT / COST RATIO"
+          eyebrow="02 · BENEFIT / COST RATIO"
           value={bcRatio}
           format={(v) => v.toFixed(2)}
           unit=""
           color="var(--blue)"
-          delay={0.7}
+          delay={0.55}
           verdict={`B/C > 1 → benefits outweigh costs by ${pct(bcRatio - 1, 0)}.`}
           formula="B/C = PW(Benefits) ÷ PW(Costs)"
         />
@@ -84,7 +74,7 @@ export const SlideIncremental = () => {
         <Working label="Decision Rule" value="IRR > 15% MARR" highlight />
       </motion.div>
 
-      <Footer note="09 · PAYBACK · IRR · B/C" />
+      <Footer note="09 · IRR · B/C" />
     </>
   );
 };

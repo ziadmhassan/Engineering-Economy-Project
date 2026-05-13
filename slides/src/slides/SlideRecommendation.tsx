@@ -72,13 +72,13 @@ export const SlideRecommendation = () => {
             lineHeight: 1.55,
           }}
         >
-          The capital outlay is recovered in{' '}
-          <strong style={{ color: 'var(--amber)' }}>≈ {INCREMENTAL.simplePayback.toFixed(1)} years</strong>,
-          delivering an IRR of{' '}
+          The incremental investment vs. the manual baseline delivers an IRR of{' '}
           <strong style={{ color: 'var(--amber)' }}>{(INCREMENTAL.irr * 100).toFixed(1)}%</strong>{' '}
           — more than{' '}
-          <strong>{(INCREMENTAL.irr / MARR).toFixed(1)}× the MARR</strong>. PW, AW, FW, and B/C
-          all agree. The conclusion holds under ±20% perturbation of initial investment and annual cost.
+          <strong>{(INCREMENTAL.irr / MARR).toFixed(1)}× the MARR</strong> — and a B/C ratio of{' '}
+          <strong style={{ color: 'var(--gold)' }}>{INCREMENTAL.bcRatio.toFixed(2)}</strong>.
+          PW, AW, and FW all agree. The conclusion holds under ±20% perturbation of initial
+          investment and annual cost.
         </motion.div>
       </div>
 
@@ -90,14 +90,13 @@ export const SlideRecommendation = () => {
           left: 96,
           right: 96,
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: 'repeat(3, 1fr)',
           gap: 24,
         }}
       >
         <Kpi label="5-YR PW SAVINGS" value={Math.abs(savings)} color="var(--green)" delay={1.0} />
-        <Kpi label="PAYBACK" value={INCREMENTAL.simplePayback} suffix=" yrs" format={(v) => v.toFixed(2)} color="var(--amber)" delay={1.15} />
-        <Kpi label="IRR" value={INCREMENTAL.irr * 100} suffix="%" format={(v) => v.toFixed(1)} color="var(--blue)" delay={1.3} />
-        <Kpi label="B / C" value={INCREMENTAL.bcRatio} format={(v) => v.toFixed(2)} color="var(--gold)" delay={1.45} />
+        <Kpi label="IRR" value={INCREMENTAL.irr * 100} suffix="%" format={(v) => v.toFixed(1)} color="var(--blue)" delay={1.2} />
+        <Kpi label="B / C" value={INCREMENTAL.bcRatio} format={(v) => v.toFixed(2)} color="var(--gold)" delay={1.4} />
       </div>
 
       <Footer note="11 · DECISION" />

@@ -142,7 +142,6 @@ export const INCREMENTAL = (() => {
   const pwBenefits = annualSavings * PA(MARR, N) + salvage * PF(MARR, N);
   const pwCosts = deltaCapex;
   const bcRatio = pwBenefits / pwCosts;
-  const simplePayback = deltaCapex / annualSavings;
 
   const npvAt = (i: number) =>
     -deltaCapex + annualSavings * PA(i, N) + salvage * PF(i, N);
@@ -154,7 +153,7 @@ export const INCREMENTAL = (() => {
   }
   const irr = (lo + hi) / 2;
 
-  return { deltaCapex, annualSavings, salvage, pwBenefits, pwCosts, bcRatio, simplePayback, irr };
+  return { deltaCapex, annualSavings, salvage, pwBenefits, pwCosts, bcRatio, irr };
 })();
 
 // ─── Sensitivity bands (evaluated on Alt 3 PW) ──────────────────────────────

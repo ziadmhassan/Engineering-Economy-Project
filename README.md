@@ -51,9 +51,9 @@ Then open the printed URL (typically `http://localhost:5173`). Navigate with **�
 
 - Currency **USD** · MARR **15%** (per syllabus rule for USD) · Horizon **5 yr**
 - Three alternatives evaluated: **Manual baseline**, **SaaS lease**, **In-house capital investment**
-- Measures of worth: PW, AW, FW, Payback, IRR, B/C, Break-Even, Sensitivity
+- Measures of worth: PW, AW, FW, IRR, B/C, Break-Even, Sensitivity
 - All assumptions sourced from BLS, OSHA, Liberty Mutual WSI, Construction Industry Institute, Procore, OpenSpace, Buildots, NVIDIA, Axis, AWS, AGC, ENR, Dodge Data, and Glassdoor — see `financial-model/sources.md` and the **Sources** sheet of the workbook.
 
 ## Result
 
-**Alternative 3 (In-House Capital Investment) is recommended.** It wins on every measure of worth; the incremental analysis vs. the manual baseline returns IRR ≈ 85%, B/C ≈ 3.10, and payback ≈ 1.1 years. The conclusion is robust under ±20% perturbation of initial investment and annual cost (see `13. Sensitivity` sheet).
+**Alternative 3 (In-House Capital Investment) is recommended.** It wins on every measure of worth; the incremental analysis vs. the manual baseline returns IRR ≈ 86% and B/C ≈ 2.88. The conclusion is robust under ±20% perturbation of initial investment and annual cost (see `12. Sensitivity` sheet).

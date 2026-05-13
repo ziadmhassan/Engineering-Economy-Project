@@ -21,7 +21,7 @@ const SLIDES = [
   { id: 'alt-3', Component: () => <SlideAltDetail alt={ALTERNATIVES[2]} index={2} />, label: 'Alt 3' },
   { id: 'cashflows', Component: SlideCashFlows, label: 'Cash Flows' },
   { id: 'measures', Component: SlideMeasures, label: 'PW · AW · FW' },
-  { id: 'incremental', Component: SlideIncremental, label: 'Payback · IRR · B/C' },
+  { id: 'incremental', Component: SlideIncremental, label: 'IRR · B/C' },
   { id: 'sensitivity', Component: SlideSensitivity, label: 'Sensitivity' },
   { id: 'recommendation', Component: SlideRecommendation, label: 'Recommendation' },
   { id: 'thanks', Component: SlideThanks, label: 'Q & A' },
