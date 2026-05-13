@@ -16,7 +16,7 @@ import xlsxwriter
 from xlsxwriter.utility import xl_rowcol_to_cell, xl_col_to_name
 
 from inputs import (
-    CURRENCY, MARR, STUDY_PERIOD, TAX_REGIME, DEPRECIATION,
+    CURRENCY, MARR, STUDY_PERIOD,
     ANALYSIS_DATE, PROJECT_CONTEXT, SOURCES, ALTERNATIVES, TEAM,
     SENSITIVITY_DRIVERS,
 )
@@ -90,8 +90,8 @@ def main():
     # ─── Defined names (workbook-scoped) ────────────────────────────────────
     wb.define_name("MARR",          "='02. Assumptions'!$C$5")
     wb.define_name("STUDY_PERIOD",  "='02. Assumptions'!$C$6")
-    wb.define_name("PROJECT_VALUE", "='02. Assumptions'!$C$12")
-    wb.define_name("ACTIVE_VALUE",  "='02. Assumptions'!$C$13")
+    wb.define_name("PROJECT_VALUE", "='02. Assumptions'!$C$9")
+    wb.define_name("ACTIVE_VALUE",  "='02. Assumptions'!$C$10")
 
     # ─── Build each sheet ───────────────────────────────────────────────────
     build_sources(sources_sheet, fmts)            # populates SOURCE_ROW
@@ -369,43 +369,35 @@ def build_assumptions(ws, fmts):
     ws.write("D6", "5-year horizon per proposal.", fmts["note"])
     ws.write("E6", "Project proposal", fmts["note"])
 
-    ws.write("B7", "Tax Regime", fmts["label_bold"])
-    ws.merge_range("C7:D7", TAX_REGIME, fmts["label"])
-    ws.write("E7", "Course convention", fmts["note"])
-
-    ws.write("B8", "Depreciation", fmts["label_bold"])
-    ws.merge_range("C8:D8", DEPRECIATION, fmts["label"])
-    ws.write("E8", "Straight-line for simplicity", fmts["note"])
-
     # Project context
-    ws.merge_range("B11:E11", "PROJECT CONTEXT", fmts["subheader"])
-    # Row 12: PROJECT_VALUE; Row 13: ACTIVE_VALUE
-    ws.write("B12", "Total Project Value", fmts["label_bold"])
-    ws.write("C12", PROJECT_CONTEXT["construction_value"], fmts["currency_input"])
-    ws.write("D12", "20-story commercial high-rise total construction value.", fmts["note"])
-    ws.write_url("E12", SOURCES["ENR_INDEX"]["url"], fmts["src"], "ENR Index 2024")
+    ws.merge_range("B8:E8", "PROJECT CONTEXT", fmts["subheader"])
+    # Row 9: PROJECT_VALUE; Row 10: ACTIVE_VALUE
+    ws.write("B9", "Total Project Value", fmts["label_bold"])
+    ws.write("C9", PROJECT_CONTEXT["construction_value"], fmts["currency_input"])
+    ws.write("D9", "20-story commercial high-rise total construction value.", fmts["note"])
+    ws.write_url("E9", SOURCES["ENR_INDEX"]["url"], fmts["src"], "ENR Index 2024")
 
-    ws.write("B13", "Active Construction Value / Year", fmts["label_bold"])
-    ws.write("C13", PROJECT_CONTEXT["active_value_per_yr"], fmts["currency_input"])
-    ws.write("D13", "Average active value supported by monitoring system over rolling pipeline.", fmts["note"])
-    ws.write("E13", "Derived", fmts["note"])
+    ws.write("B10", "Active Construction Value / Year", fmts["label_bold"])
+    ws.write("C10", PROJECT_CONTEXT["active_value_per_yr"], fmts["currency_input"])
+    ws.write("D10", "Average active value supported by monitoring system over rolling pipeline.", fmts["note"])
+    ws.write("E10", "Derived", fmts["note"])
 
-    ws.write("B14", "Site Type", fmts["label_bold"])
-    ws.merge_range("C14:D14", PROJECT_CONTEXT["site_type"], fmts["label"])
-    ws.write("E14", "Scope assumption", fmts["note"])
+    ws.write("B11", "Site Type", fmts["label_bold"])
+    ws.merge_range("C11:D11", PROJECT_CONTEXT["site_type"], fmts["label"])
+    ws.write("E11", "Scope assumption", fmts["note"])
 
-    ws.write("B15", "Owner Type", fmts["label_bold"])
-    ws.merge_range("C15:D15", PROJECT_CONTEXT["owner_type"], fmts["label"])
-    ws.write("E15", "Scope assumption", fmts["note"])
+    ws.write("B12", "Owner Type", fmts["label_bold"])
+    ws.merge_range("C12:D12", PROJECT_CONTEXT["owner_type"], fmts["label"])
+    ws.write("E12", "Scope assumption", fmts["note"])
 
-    ws.write("B16", "Average On-Site Headcount", fmts["label_bold"])
-    ws.write("C16", PROJECT_CONTEXT["headcount_onsite"], fmts["int_input"])
-    ws.write("D16", "Used to size accident-frequency calculation.", fmts["note"])
-    ws.write_url("E16", SOURCES["DODGE_DATA"]["url"], fmts["src"], "Dodge 2023")
+    ws.write("B13", "Average On-Site Headcount", fmts["label_bold"])
+    ws.write("C13", PROJECT_CONTEXT["headcount_onsite"], fmts["int_input"])
+    ws.write("D13", "Used to size accident-frequency calculation.", fmts["note"])
+    ws.write_url("E13", SOURCES["DODGE_DATA"]["url"], fmts["src"], "Dodge 2023")
 
     # Quick alternatives summary table
-    ws.merge_range("B18:E18", "ALTERNATIVES UNDER STUDY", fmts["subheader"])
-    r = 19
+    ws.merge_range("B15:E15", "ALTERNATIVES UNDER STUDY", fmts["subheader"])
+    r = 16
     ws.write(r-1, 1, "Alternative", fmts["header"])
     ws.write(r-1, 2, "Initial Investment", fmts["header_right"])
     ws.write(r-1, 3, "Annual Cost", fmts["header_right"])
@@ -417,7 +409,7 @@ def build_assumptions(ws, fmts):
         ws.write(r, 4, a["salvage"],            fmts["currency"])
         r += 1
 
-    # Anchor cells used as defined names: C5 MARR, C6 STUDY_PERIOD, C12 PROJECT_VALUE, C13 ACTIVE_VALUE
+    # Anchor cells used as defined names: C5 MARR, C6 STUDY_PERIOD, C9 PROJECT_VALUE, C10 ACTIVE_VALUE
 
     ws.freeze_panes(4, 0)
 
