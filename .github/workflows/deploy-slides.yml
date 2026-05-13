@@ -14,6 +14,9 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  # Needed so `actions/configure-pages` with `enablement: true` can turn Pages
+  # on the first time it runs without a manual Settings → Pages click.
+  administration: write
 
 # Allow only one concurrent deployment; cancel in-progress runs but let the
 # latest queued one finish so the live site always reflects the latest commit.
