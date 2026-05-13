@@ -1,3 +1,5 @@
+# Deploys the React/Vite slide deck under slides/ to GitHub Pages.
+# Live site: https://ziadmhassan.github.io/Engineering-Economy-Project/
 name: Deploy slides to GitHub Pages
 
 on:
