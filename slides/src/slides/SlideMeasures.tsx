@@ -13,7 +13,7 @@ export const SlideMeasures = () => {
     <>
       <Blueprint />
       <SlideHeader
-        index="08"
+        index="09"
         eyebrow="MEASURES OF WORTH"
         title="Present, Annual,"
         highlight="and Future Worth."
@@ -33,53 +33,55 @@ export const SlideMeasures = () => {
         MARR = {(MARR * 100).toFixed(0)}% · n = {N} yr · all values shown as costs (negative PW = net outflow)
       </div>
 
-      {/* Bar chart: PW comparison */}
-      <div style={{ position: 'absolute', top: 330, left: 96, width: 1100 }}>
-        <Panel title="Present Worth of Total Cost" tag="HIGHER IS BETTER" delay={0.3}>
-          <BarChart
-            width={1020}
-            height={300}
-            data={rows.map((r) => ({
-              label: r.a.short,
-              value: r.m.pw,
-              color: r.a.color,
-            }))}
-            format={(v) => fmtUSD(v)}
-            delay={0.5}
-            highlightIndex={bestIdx}
-          />
-        </Panel>
-      </div>
+      <div style={{ position: 'absolute', top: 330, left: 96, right: 96, height: 420, display: 'flex', gap: 32 }}>
+        {/* Bar chart: PW comparison */}
+        <div style={{ flex: '1 1 auto', width: '60%' }}>
+          <Panel title="Present Worth of Total Cost" tag="HIGHER IS BETTER" delay={0.3} style={{ height: '100%', padding: '24px 32px' }}>
+            <BarChart
+              width={900}
+              height={300}
+              data={rows.map((r) => ({
+                label: r.a.short,
+                value: r.m.pw,
+                color: r.a.color,
+              }))}
+              format={(v) => fmtUSD(v)}
+              delay={0.5}
+              highlightIndex={bestIdx}
+            />
+          </Panel>
+        </div>
 
-      {/* RIGHT: PW/AW/FW table */}
-      <div style={{ position: 'absolute', top: 330, right: 96, width: 660 }}>
-        <Panel title="Worth Equivalents" tag="i = 15%" delay={0.4}>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '110px 1fr 1fr 1fr',
-              rowGap: 6,
-              columnGap: 18,
-              alignItems: 'center',
-            }}
-          >
-            <Header>Alt.</Header>
-            <Header right>PW</Header>
-            <Header right>AW</Header>
-            <Header right>FW</Header>
+        {/* RIGHT: PW/AW/FW table */}
+        <div style={{ flex: '0 0 auto', width: 660, display: 'flex', flexDirection: 'column' }}>
+          <Panel title="Worth Equivalents" tag="i = 15%" delay={0.4} style={{ height: '100%', padding: '24px 32px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '110px 1fr 1fr 1fr',
+                rowGap: 16,
+                columnGap: 18,
+                alignItems: 'center',
+              }}
+            >
+              <Header>Alt.</Header>
+              <Header right>PW</Header>
+              <Header right>AW</Header>
+              <Header right>FW</Header>
 
-            {rows.map((r) => (
-              <Row
-                key={r.a.id}
-                a={r.a}
-                pw={r.m.pw}
-                aw={r.m.aw}
-                fw={r.m.fw}
-                best={r.a.id === best.a.id}
-              />
-            ))}
-          </div>
-        </Panel>
+              {rows.map((r) => (
+                <Row
+                  key={r.a.id}
+                  a={r.a}
+                  pw={r.m.pw}
+                  aw={r.m.aw}
+                  fw={r.m.fw}
+                  best={r.a.id === best.a.id}
+                />
+              ))}
+            </div>
+          </Panel>
+        </div>
       </div>
 
       {/* Winner ribbon */}
@@ -131,7 +133,7 @@ export const SlideMeasures = () => {
         </div>
       </motion.div>
 
-      <Footer note="08 · MEASURES OF WORTH" />
+      <Footer note="09 · MEASURES OF WORTH" />
     </>
   );
 };

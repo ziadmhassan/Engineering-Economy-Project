@@ -13,7 +13,7 @@ export const SlideRecommendation = () => {
     <>
       <Blueprint />
       <SlideHeader
-        index="11"
+        index="12"
         eyebrow="RECOMMENDATION"
         title="Adopt"
         highlight="Alternative 3."

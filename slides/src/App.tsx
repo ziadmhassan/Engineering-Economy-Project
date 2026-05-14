@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef, useLayoutEffect } from 'react
 import { AnimatePresence, motion } from 'framer-motion';
 import { SlideTitle } from './slides/SlideTitle';
 import { SlideProblem } from './slides/SlideProblem';
+import { SlideAssumptions } from './slides/SlideAssumptions';
 import { SlideAlternatives } from './slides/SlideAlternatives';
 import { SlideAltDetail } from './slides/SlideAltDetail';
 import { SlideCashFlows } from './slides/SlideCashFlows';
@@ -15,6 +16,7 @@ import { ALTERNATIVES } from './data/model';
 const SLIDES = [
   { id: 'title', Component: SlideTitle, label: 'Cover' },
   { id: 'problem', Component: SlideProblem, label: 'Motivation' },
+  { id: 'assumptions', Component: SlideAssumptions, label: 'Assumptions' },
   { id: 'alts', Component: SlideAlternatives, label: 'Alternatives' },
   { id: 'alt-1', Component: () => <SlideAltDetail alt={ALTERNATIVES[0]} index={0} />, label: 'Alt 1' },
   { id: 'alt-2', Component: () => <SlideAltDetail alt={ALTERNATIVES[1]} index={1} />, label: 'Alt 2' },

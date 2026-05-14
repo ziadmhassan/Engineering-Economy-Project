@@ -10,7 +10,7 @@ export const SlideSensitivity = () => {
     <>
       <Blueprint />
       <SlideHeader
-        index="10"
+        index="11"
         eyebrow="SENSITIVITY ANALYSIS"
         title="How fragile"
         highlight="is the recommendation?"
