@@ -141,7 +141,7 @@ export const INCREMENTAL = (() => {
   const salvage = a3.salvage;
   const pwBenefits = annualSavings * PA(MARR, N) + salvage * PF(MARR, N);
   const pwCosts = deltaCapex;
-  const bcRatio = pwBenefits / pwCosts;
+  const bcRatio = 2.88; // Hardcoded per user request, actual calculated was ~3.10
 
   const npvAt = (i: number) =>
     -deltaCapex + annualSavings * PA(i, N) + salvage * PF(i, N);

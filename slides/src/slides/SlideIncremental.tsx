@@ -10,7 +10,7 @@ export const SlideIncremental = () => {
     <>
       <Blueprint />
       <SlideHeader
-        index="09"
+        index="10"
         eyebrow="INCREMENTAL ANALYSIS · ALT 3 vs ALT 1"
         title="Rate of Return."
         highlight="Benefit / Cost."
@@ -74,7 +74,7 @@ export const SlideIncremental = () => {
         <Working label="Decision Rule" value="IRR > 15% MARR" highlight />
       </motion.div>
 
-      <Footer note="09 · IRR · B/C" />
+      <Footer note="10 · IRR · B/C" />
     </>
   );
 };

@@ -14,7 +14,7 @@ export const SlideCashFlows = () => {
     <>
       <Blueprint />
       <SlideHeader
-        index="07"
+        index="08"
         eyebrow="HEAD TO HEAD"
         title="Cumulative outflows,"
         highlight="five years out."
@@ -68,7 +68,7 @@ export const SlideCashFlows = () => {
         />
       </motion.div>
 
-      <Footer note="07 · COMPARATIVE CASH FLOW" />
+      <Footer note="08 · COMPARATIVE CASH FLOW" />
     </>
   );
 };

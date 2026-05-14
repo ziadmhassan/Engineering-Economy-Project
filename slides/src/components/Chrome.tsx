@@ -11,7 +11,7 @@ export const Blueprint = ({ children }: { children?: ReactNode }) => (
 
 export const SlideHeader = ({
   index,
-  total = '12',
+  total = '13',
   eyebrow,
   title,
   highlight,

@@ -8,7 +8,7 @@ export const SlideAltDetail = ({ alt, index }: { alt: Alternative; index: number
   const m = metricsOf(alt);
   const cf = cashFlowSeries(alt);
   const cum = cumulative(cf);
-  const num = (3 + index + 1).toString().padStart(2, '0'); // 04, 05, 06
+  const num = (5 + index).toString().padStart(2, '0'); // 05, 06, 07
 
   return (
     <>
@@ -58,38 +58,47 @@ export const SlideAltDetail = ({ alt, index }: { alt: Alternative; index: number
         </div>
       </motion.div>
 
-      {/* LEFT: cost breakdown */}
-      <div style={{ position: 'absolute', top: 320, left: 96, width: 820 }}>
-        <Panel title="Initial Investment (Year 0)" delay={0.3}>
-          <ItemTable items={alt.initialBreakdown} accent={alt.color} />
-          <Total label="TOTAL INITIAL INVESTMENT" value={alt.initial} accent={alt.color} />
+      {/* 3-COLUMN LAYOUT */}
+      <div style={{ position: 'absolute', top: 320, left: 96, right: 96, height: 576, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
+        
+        <Panel title="Initial Investment (Y0)" delay={0.3} style={{ padding: '24px 28px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ flex: '1 1 auto' }}>
+            <ItemTable items={alt.initialBreakdown} accent={alt.color} />
+          </div>
+          <div style={{ flex: '0 0 auto', marginTop: 16 }}>
+            <Total label="TOTAL" value={alt.initial} accent={alt.color} />
+          </div>
         </Panel>
 
-        <div style={{ height: 22 }} />
-
-        <Panel title="Annual Cost (Years 1–5)" delay={0.5}>
-          <ItemTable items={alt.costBreakdown} accent={alt.color} />
-          <Total label="TOTAL ANNUAL COST" value={alt.annualCost} accent={alt.color} />
-          {alt.salvage > 0 && (
-            <Total label="YEAR-5 SALVAGE" value={-alt.salvage} accent="var(--green)" suffix="(recovery)" />
-          )}
+        <Panel title="Annual Cost (Y1–5)" delay={0.5} style={{ padding: '24px 28px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ flex: '1 1 auto' }}>
+            <ItemTable items={alt.costBreakdown} accent={alt.color} />
+          </div>
+          <div style={{ flex: '0 0 auto', marginTop: 16 }}>
+            <Total label="TOTAL" value={alt.annualCost} accent={alt.color} />
+            {alt.salvage > 0 && (
+              <Total label="Y5 SALVAGE" value={-alt.salvage} accent="var(--green)" />
+            )}
+          </div>
         </Panel>
-      </div>
 
-      {/* RIGHT: cumulative cash flow chart */}
-      <div style={{ position: 'absolute', top: 320, right: 96, width: 880 }}>
-        <Panel title="Cumulative Cash Flow · 5-year horizon" tag="USD" delay={0.7}>
-          <LineChart
-            width={820}
-            height={460}
-            series={[
-              { label: alt.short, color: alt.color, values: cum },
-            ]}
-            xLabels={['Y0', 'Y1', 'Y2', 'Y3', 'Y4', 'Y5']}
-            yFormat={(v) => fmtUSD(v)}
-            delay={0.9}
-          />
+        <Panel title="Cumulative Cash Flow" tag="USD" delay={0.7} style={{ padding: '24px 28px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ flex: '1 1 auto', position: 'relative' }}>
+            <div style={{ position: 'absolute', inset: 0 }}>
+              <LineChart
+                width={500}
+                height={420}
+                series={[
+                  { label: alt.short, color: alt.color, values: cum },
+                ]}
+                xLabels={['Y0', 'Y1', 'Y2', 'Y3', 'Y4', 'Y5']}
+                yFormat={(v) => fmtUSD(v)}
+                delay={0.9}
+              />
+            </div>
+          </div>
         </Panel>
+
       </div>
 
       <Footer note={`${num} · ${alt.short.toUpperCase()}`} />
@@ -112,7 +121,7 @@ const ItemTable = ({
           display: 'grid',
           gridTemplateColumns: '1fr auto',
           alignItems: 'center',
-          padding: '10px 0',
+          padding: '12px 0',
           borderBottom: '1px solid rgba(245,239,224,0.07)',
         }}
       >
@@ -121,7 +130,7 @@ const ItemTable = ({
           {it.note && (
             <div
               className="mono"
-              style={{ fontSize: 12, color: 'rgba(245,239,224,0.5)', letterSpacing: 1 }}
+              style={{ fontSize: 12, color: 'rgba(245,239,224,0.5)', letterSpacing: 1, marginTop: 4 }}
             >
               {it.note}
             </div>
@@ -155,15 +164,15 @@ const Total = ({
 }) => (
   <div
     style={{
-      marginTop: 14,
-      paddingTop: 12,
+      marginTop: 8,
+      paddingTop: 8,
       borderTop: `1px solid ${accent}`,
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'baseline',
     }}
   >
-    <span className="mono" style={{ fontSize: 12, letterSpacing: 3, color: 'rgba(245,239,224,0.6)' }}>
+    <span className="mono" style={{ fontSize: 14, letterSpacing: 3, color: 'rgba(245,239,224,0.6)' }}>
       {label}
     </span>
     <span

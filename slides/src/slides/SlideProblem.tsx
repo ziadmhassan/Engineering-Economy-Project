@@ -41,7 +41,7 @@ export const SlideProblem = () => (
       index="02"
       eyebrow="THE PROBLEM"
       title="Manual supervision is"
-      highlight="expensive — and unsafe."
+      highlight="expensive & unsafe."
     />
 
     <div

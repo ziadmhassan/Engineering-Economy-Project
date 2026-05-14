@@ -25,7 +25,7 @@ export const SlideAlternatives = () => (
   <>
     <Blueprint />
     <SlideHeader
-      index="03"
+      index="04"
       eyebrow="THE THREE ALTERNATIVES"
       title="Three paths."
       highlight="One decision."
@@ -37,9 +37,11 @@ export const SlideAlternatives = () => (
         top: 320,
         left: 96,
         right: 96,
+        height: 560,
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gap: 28,
+        alignItems: 'stretch',
       }}
     >
       {ALTERNATIVES.map((a, i) => (
@@ -56,7 +58,8 @@ export const SlideAlternatives = () => (
               'linear-gradient(180deg, rgba(18, 35, 64, 0.85) 0%, rgba(10, 20, 36, 0.95) 100%)',
             border: `1px solid var(--line-2)`,
             borderTop: `4px solid ${a.color}`,
-            minHeight: 600,
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           <div className="mono" style={{ color: a.color, fontSize: 13, letterSpacing: 3, marginBottom: 6 }}>
@@ -92,51 +95,54 @@ export const SlideAlternatives = () => (
             <Box label="ANNUAL COST" value={fmtUSD(a.annualCost)} accent={a.color} />
           </div>
 
-          {SUMMARY.map((sec) => (
-            <div key={sec.title} style={{ marginBottom: 18 }}>
-              <div
-                className="mono"
-                style={{
-                  fontSize: 11,
-                  letterSpacing: 3,
-                  color:
-                    sec.title === 'Pros' ? 'var(--green)' : 'var(--red)',
-                  marginBottom: 8,
-                }}
-              >
-                {sec.title.toUpperCase()}
-              </div>
-              <ul style={{ listStyle: 'none', padding: 0 }}>
-                {(sec.items as any)[a.id].map((it: string, j: number) => (
-                  <li
-                    key={j}
-                    style={{
-                      fontSize: 17,
-                      lineHeight: 1.5,
-                      paddingLeft: 18,
-                      position: 'relative',
-                      color: 'rgba(245, 239, 224, 0.9)',
-                    }}
-                  >
-                    <span
+          <div style={{ flex: '1 1 auto', display: 'flex', flexDirection: 'column', gap: 18 }}>
+            {SUMMARY.map((sec) => (
+              <div key={sec.title} style={{ flex: '1 1 auto' }}>
+                <div
+                  className="mono"
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: 3,
+                    color:
+                      sec.title === 'Pros' ? 'var(--green)' : 'var(--red)',
+                    marginBottom: 8,
+                  }}
+                >
+                  {sec.title.toUpperCase()}
+                </div>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                  {(sec.items as any)[a.id].map((it: string, j: number) => (
+                    <li
+                      key={j}
                       style={{
-                        position: 'absolute',
-                        left: 0,
-                        color: sec.title === 'Pros' ? 'var(--green)' : 'var(--red)',
+                        fontSize: 17,
+                        lineHeight: 1.5,
+                        paddingLeft: 18,
+                        position: 'relative',
+                        color: 'rgba(245, 239, 224, 0.9)',
+                        marginBottom: 4,
                       }}
                     >
-                      {sec.title === 'Pros' ? '+' : '−'}
-                    </span>
-                    {it}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: 0,
+                          color: sec.title === 'Pros' ? 'var(--green)' : 'var(--red)',
+                        }}
+                      >
+                        {sec.title === 'Pros' ? '+' : '−'}
+                      </span>
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </motion.div>
       ))}
     </div>
-    <Footer note="03 · ALTERNATIVES" />
+    <Footer note="04 · ALTERNATIVES" />
   </>
 );
 
